@@ -11,10 +11,9 @@
    ```
 
 2. Activate the virtual environment:
-   - On macOS/Linux:
-     ```bash
-     source venv/bin/activate
-     ```
+   ```bash
+   source venv/bin/activate
+   ```
 
 3. Your command prompt should now show `(venv)` at the beginning, indicating that the virtual environment is active.
 

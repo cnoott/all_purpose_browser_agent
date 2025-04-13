@@ -45,15 +45,13 @@ async def go_to_url(url: str) -> dict:
 async def parse_dom() -> dict:
     """
     Retrieves the entire DOM content.
+    You can use this to read the content of the page for semantic and for selector purposes.
     """
     global page
-    try:
-        # Ensure page is initialized
-        if page is None:
-            await initialize_playwright()
-        
-        # Get the HTML content of the page
-        dom_content = await page.html()
+    try: 
+       # Get the HTML content of the page
+        dom_content = await page.content()
+        print('parsed dom!',dom_content[:200])
         return {"status": "success", "dom_content": dom_content}
     except Exception as e:
         return {"status": "error", "message": str(e)}
@@ -122,11 +120,12 @@ root_agent = Agent(
     ),
     instruction=(
         "You are a helpful agent who can perform tasks on the browser. "
-        "You can navigate to URLs and perform actions on web pages. "
+        "You can navigate to URLs and perform actions on web pages as well as parse and understand the content of a page. "
         "You are using playwright to interact with the browser so use selctors that work well with playwright"
         "Always ensure URLs start with http:// or https://"
+        "You can use the parse_dom tool to read the page's content"
     ),
-    tools=[go_to_url, type_into_selector, click, press_enter],
+    tools=[go_to_url, type_into_selector, click, press_enter, parse_dom],
 )
 
 # Create session service
