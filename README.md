@@ -20,29 +20,40 @@
 
 ## Installing Requirements
 
-1. Make sure your virtual environment is activated (you should see `(venv)` in your terminal)
+1. Ensure your virtual environment is activated (you should see `(venv)` in your terminal).
 
 2. Install the required packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Install Playwright 
+3. Install Playwright:
    ```bash
    playwright install
    ```
 
-## Run
-To agent in browser
+## Setting Up Environment Variables
+
+Create a `.env` file in the root of your project and add the following lines:
+
+```plaintext
+GOOGLE_GENAI_USE_VERTEXAI="False"
+GOOGLE_API_KEY=""
+```
+
+Make sure to replace `""` with your actual Google API key.
+
+## Running the Project
+
+To start the agent in the browser, run:
 ```bash
 adk web
 ```
 
-
 ## Notes
 
-- Always make sure your virtual environment is activated before running the project
-- If you add new dependencies, update the requirements.txt file using:
+- Always ensure your virtual environment is activated before running the project.
+- If you add new dependencies, update the `requirements.txt` file using:
   ```bash
   pip freeze > requirements.txt
-  ``` 
+  ```
