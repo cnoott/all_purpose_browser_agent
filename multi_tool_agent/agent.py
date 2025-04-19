@@ -110,6 +110,28 @@ async def press_enter() -> dict:
     except Exception as e:
         return {"status": "err", "message": str(e)}
 
+async def scroll(pixels: int = 1000) -> dict:
+    """
+    Scrolls the browser window down by a specified number of pixels.
+
+    Args:
+        pixels: How far to scroll down (default is 1000px)
+
+    Returns:
+        A dictionary with status and message
+    """
+    global page
+    try:
+        await page.evaluate(f"window.scrollBy(0, {pixels});")
+        return {
+            "status": "success",
+            "message": f"Scrolled down {pixels}px"
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
 
 # Create the agent with the tool
 root_agent = Agent(
@@ -124,8 +146,9 @@ root_agent = Agent(
         "You are using playwright to interact with the browser so use selctors that work well with playwright"
         "Always ensure URLs start with http:// or https://"
         "You can use the parse_dom tool to read the page's content"
+        "You can scroll the page to find more content, and you can use the scroll tool to do so. wait for the content to load before scrolling."
     ),
-    tools=[go_to_url, type_into_selector, click, press_enter, parse_dom],
+    tools=[go_to_url, type_into_selector, click, press_enter, parse_dom, scroll],
 )
 
 # Create session service
